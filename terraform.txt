@@ -1,0 +1,44 @@
+ec2-instance-launch instance-name-create new key pair-proceed without key pair - launch instance-
+assign roles
+click on created instance-id-click on connect
+sudo yum update -y
+sudo yum install -y yum-utils
+sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo
+sudo yum -y install terraform
+terraform --version
+mkdir sajid    
+cd sajid
+touch main.tf
+nano main.tf
+
+terraform {  
+required_providers {  
+aws = {  
+source = "hashicorp/aws"  
+version = "~> 3.27"  
+}  
+}  
+required_version = ">= 0.14.9"  
+}  
+provider "aws" {  
+profile = "default"  
+region = "us-west-2"  
+} 
+resource "aws_instance" "app_server" {  
+ami = "ami-830c94e3"  
+instance_type = "t2.micro"  
+tags = {  
+Name = "ExampleAppServerInstance"  
+}  
+}
+
+ctrl+o  enter  ctrl+x
+terraform init  
+terraform fmt   
+terraform validate  
+terraform apply
+
+nano main.tf    ami-08d70e59c07c61a3a
+ctrl+o   enter   ctrl+x
+terraform apply  
+terraform destroy
